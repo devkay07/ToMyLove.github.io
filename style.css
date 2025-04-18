@@ -1,0 +1,166 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font Imports */
+/* Included via <link> in HTML now */
+
+/* Variables for easier color changes */
+:root {
+    --bg-gradient-start: #ffdde1; /* Soft Pink */
+    --bg-gradient-end: #ee9ca7;   /* Deeper Pink/Rose */
+    --text-color: #333;           /* Dark grey for readability */
+    --header-color: #d6336c;     /* A vibrant pink for the header */
+    --name-color: #c2255c;       /* Slightly different for the name */
+    --container-bg: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    --heart-color: #ff4d6d;       /* Bright Pink for hearts */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background-size: 400% 400%; /* Needed for gradient animation */
+    animation: gradientBG 15s ease infinite;
+    overflow: hidden; /* Hide hearts that go off-screen */
+    position: relative; /* Needed for absolute positioning of hearts */
+    padding: 20px; /* Add some padding for smaller screens */
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.content-container {
+    background: var(--container-bg);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    z-index: 10; /* Make sure content is above hearts */
+    opacity: 0; /* Start hidden for fade-in */
+    animation: fadeInContent 2s ease-out 0.5s forwards; /* Fade in after 0.5s */
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5em; /* Responsive font size */
+    color: var(--header-color);
+    margin-bottom: 25px;
+    line-height: 1.2;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    .content-container {
+        padding: 30px 25px;
+    }
+}
+
+
+.praise-name {
+    color: var(--name-color);
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { text-shadow: 0 0 5px rgba(194, 37, 92, 0.3); }
+    50% { text-shadow: 0 0 15px rgba(194, 37, 92, 0.8); }
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+p.intro {
+    font-weight: 400;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+p.outro {
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+/* --- Heart Animations --- */
+.hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Make sure hearts don't block interaction */
+    overflow: hidden;
+}
+
+/* Create multiple hearts using pseudo-elements on the container */
+.hearts-container::before,
+.hearts-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* We'll use box-shadow to create multiple "hearts" from the pseudo-elements */
+/* This is a trick to avoid lots of HTML elements */
+@function hearts($count) {
+  $value: '';
+  @for $i from 1 through $count {
+    $value: $value + random(100) + vw + ' ' + random(100) + vh + ' 0 ' + random(5) + px + ' ' + var(--heart-color);
+    @if $i < $count {
+      $value: $value + ', ';
+    }
+  }
+  @return unquote($value);
+}
+
+@keyframes floatHearts {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+
+.hearts-container::before {
+    /* Create 15 hearts */
+    width: 10px; /* Base size of hearts */
+    height: 10px; /* Base size of hearts */
+    box-shadow: hearts(15);
+    animation: floatHearts 25s linear infinite;
+}
+
+.hearts-container::after {
+     /* Create another 15 slightly different hearts */
+    width: 7px;
+    height: 7px;
+    box-shadow: hearts(15);
+    animation: floatHearts 30s linear infinite reverse; /* Different duration/direction */
+    animation-delay: 1s; /* Start slightly later */
+}
+         
