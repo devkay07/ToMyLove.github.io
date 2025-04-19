@@ -10,11 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="hearts-container">
-        </div>
+    <div id="tsparticles"></div>
 
     <div class="content-container">
-        <h1>For My Amazing <span class="praise-name">Praise</span></h1>
+        <h1>
+            <span>F</span><span>o</span><span>r</span><span>&nbsp;</span><span>M</span><span>y</span><span>&nbsp;</span><span>A</span><span>m</span><span>a</span><span>z</span><span>i</span><span>n</span><span>g</span><span>&nbsp;</span><span class="praise-name">P</span><span class="praise-name">r</span><span class="praise-name">a</span><span class="praise-name">i</span><span class="praise-name">s</span><span class="praise-name">e</span>
+        </h1>
 
         <p class="intro">
             This little corner of the web is just for you, a small way to show you how much light you bring into my life.
@@ -29,9 +30,112 @@
         </p>
 
         <p class="outro">
-            With all my love, </br> Kay ❤️‍🔥
+            With all my love, always.
         </p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            fullScreen: {
+                enable: true,
+                zIndex: -1 // Put particles behind content
+            },
+            particles: {
+                number: {
+                    value: 50, // Number of particles
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: ["#ff4d6d", "#ff758f", "#ff8fa3", "#ffb3c1"] // Shades of pink/red
+                },
+                shape: {
+                    type: "char", // Use characters as shapes
+                    character: {
+                      value: ["❤", "💖", "✨"], // Hearts and sparkle emoji
+                      font: "Verdana",
+                      style: "",
+                      weight: "400",
+                      fill: true
+                    }
+                },
+                opacity: {
+                    value: {min: 0.3, max: 0.8}, // Varying opacity
+                    animation: {
+                        enable: true,
+                        speed: 1,
+                        minimumValue: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: {min: 10, max: 25}, // Varying size
+                    animation: {
+                        enable: true,
+                        speed: 3,
+                        minimumValue: 5,
+                        sync: false
+                    }
+                },
+                links: {
+                    enable: false // Disable lines connecting particles
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5, // Movement speed
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out", // Particles leave screen
+                    bounce: false,
+                    attract: {
+                        enable: false
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "bubble" // Make particles slightly bigger on hover
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push" // Add a particle on click
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 400,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 150,
+                        size: 30, // Bubble size increase
+                        duration: 2,
+                        opacity: 1,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200
+                    },
+                    push: {
+                        particles_nb: 4 // Number of particles to add on click
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            detectRetina: true // Better quality on high-res screens
+        });
+    </script>
 </body>
 </html>
