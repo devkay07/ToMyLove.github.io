@@ -5,18 +5,15 @@
     box-sizing: border-box;
 }
 
-/* Font Imports */
-/* Included via <link> in HTML now */
-
-/* Variables for easier color changes */
+/* Variables */
 :root {
-    --bg-gradient-start: #ffdde1; /* Soft Pink */
-    --bg-gradient-end: #ee9ca7;   /* Deeper Pink/Rose */
-    --text-color: #333;           /* Dark grey for readability */
-    --header-color: #d6336c;     /* A vibrant pink for the header */
-    --name-color: #c2255c;       /* Slightly different for the name */
-    --container-bg: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
-    --heart-color: #ff4d6d;       /* Bright Pink for hearts */
+    --bg-gradient-start: #6a11cb; /* Deep Purple */
+    --bg-gradient-end: #2575fc;   /* Vibrant Blue */
+    --text-color: #f0f0f0;       /* Light text for contrast */
+    --header-color: #fccb06;     /* Gold/Yellow for header */
+    --name-color: #ff80bf;       /* Bright Pink for the name */
+    --container-bg: rgba(0, 0, 0, 0.25); /* Darker semi-transparent for glass effect */
+    /* Particle colors are set in the JS */
 }
 
 body {
@@ -27,140 +24,164 @@ body {
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-    background-size: 400% 400%; /* Needed for gradient animation */
-    animation: gradientBG 15s ease infinite;
-    overflow: hidden; /* Hide hearts that go off-screen */
-    position: relative; /* Needed for absolute positioning of hearts */
-    padding: 20px; /* Add some padding for smaller screens */
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite; /* Slightly slower gradient animation */
+    overflow: hidden; /* Still needed */
+    position: relative;
+    padding: 20px;
 }
 
+/* Gradient Animation */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+/* tsParticles container needs to be behind content */
+#tsparticles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Ensure it's behind the content container */
+}
+
+
 .content-container {
+    /* Glassmorphism Effect */
     background: var(--container-bg);
+    backdrop-filter: blur(10px); /* The frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+
     padding: 40px 50px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 20px; /* Slightly more rounded */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); /* Adjusted shadow */
     text-align: center;
-    max-width: 600px;
+    max-width: 650px; /* Slightly wider */
     width: 90%;
-    z-index: 10; /* Make sure content is above hearts */
-    opacity: 0; /* Start hidden for fade-in */
-    animation: fadeInContent 2s ease-out 0.5s forwards; /* Fade in after 0.5s */
+    z-index: 10; /* Keep content above particles */
+    opacity: 0;
+    animation: fadeInContent 1.5s ease-out 0.5s forwards;
 }
 
 @keyframes fadeInContent {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px) scale(0.98); } /* Start slightly smaller */
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 3.5em; /* Responsive font size */
+    font-size: 3.8em; /* Slightly larger */
     color: var(--header-color);
-    margin-bottom: 25px;
-    line-height: 1.2;
+    margin-bottom: 30px;
+    line-height: 1.3;
+    font-weight: 700; /* Ensure script font is bold */
 }
 
-/* Media query for smaller screens */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.5em;
+/* Animated Letters */
+h1 span {
+    display: inline-block; /* Needed for transforms */
+    opacity: 0;
+    transform: translateY(-30px) scale(0.8);
+    animation: letterBounce 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Bouncy easing */
+}
+
+/* Stagger the animation for each letter */
+h1 span:nth-child(1) { animation-delay: 0.6s; }
+h1 span:nth-child(2) { animation-delay: 0.65s; }
+h1 span:nth-child(3) { animation-delay: 0.7s; }
+h1 span:nth-child(4) { animation-delay: 0.75s; } /* Space */
+h1 span:nth-child(5) { animation-delay: 0.8s; }
+h1 span:nth-child(6) { animation-delay: 0.85s; }
+h1 span:nth-child(7) { animation-delay: 0.9s; } /* Space */
+h1 span:nth-child(8) { animation-delay: 0.95s; }
+h1 span:nth-child(9) { animation-delay: 1.0s; }
+h1 span:nth-child(10) { animation-delay: 1.05s; }
+h1 span:nth-child(11) { animation-delay: 1.1s; }
+h1 span:nth-child(12) { animation-delay: 1.15s; }
+h1 span:nth-child(13) { animation-delay: 1.2s; }
+h1 span:nth-child(14) { animation-delay: 1.25s; }/* Space */
+/* Praise's name letters */
+h1 span:nth-child(15) { animation-delay: 1.3s; }
+h1 span:nth-child(16) { animation-delay: 1.35s; }
+h1 span:nth-child(17) { animation-delay: 1.4s; }
+h1 span:nth-child(18) { animation-delay: 1.45s; }
+h1 span:nth-child(19) { animation-delay: 1.5s; }
+h1 span:nth-child(20) { animation-delay: 1.55s; }
+
+
+@keyframes letterBounce {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.8);
     }
-    .content-container {
-        padding: 30px 25px;
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-
+/* Styling for Praise's Name */
 .praise-name {
     color: var(--name-color);
-    animation: pulseGlow 3s infinite ease-in-out;
+    /* Keep the pulse animation, but make it slightly more subtle */
+    animation: pulseGlow 3s infinite ease-in-out, letterBounce 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Add letter bounce too */
+    /* Ensure animation delays from above apply */
+    transition: text-shadow 0.3s ease; /* Add transition for hover */
 }
 
+/* Enhance glow on hover */
+.praise-name:hover {
+     text-shadow: 0 0 25px var(--name-color); /* Brighter glow on hover */
+}
+
+
 @keyframes pulseGlow {
-    0%, 100% { text-shadow: 0 0 5px rgba(194, 37, 92, 0.3); }
-    50% { text-shadow: 0 0 15px rgba(194, 37, 92, 0.8); }
+    0%, 100% { text-shadow: 0 0 8px rgba(255, 128, 191, 0.5); }
+    50% { text-shadow: 0 0 18px rgba(255, 128, 191, 0.9); }
 }
 
 p {
     font-size: 1.1em;
-    line-height: 1.7;
+    line-height: 1.8; /* Slightly more spacing */
     margin-bottom: 20px;
     font-weight: 300;
+    color: var(--text-color); /* Ensure text is light */
 }
 
 p.intro {
     font-weight: 400;
-    font-size: 1.2em;
-    margin-bottom: 30px;
+    font-size: 1.25em; /* Slightly larger intro */
+    margin-bottom: 35px;
+    color: #fff; /* Make intro stand out slightly more */
 }
 
 p.outro {
     font-weight: 400;
     font-style: italic;
-    margin-top: 30px;
+    margin-top: 35px;
     margin-bottom: 0;
+    font-size: 1.15em;
+    color: #f0f0f0;
 }
 
-/* --- Heart Animations --- */
-.hearts-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Make sure hearts don't block interaction */
-    overflow: hidden;
-}
-
-/* Create multiple hearts using pseudo-elements on the container */
-.hearts-container::before,
-.hearts-container::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-/* We'll use box-shadow to create multiple "hearts" from the pseudo-elements */
-/* This is a trick to avoid lots of HTML elements */
-@function hearts($count) {
-  $value: '';
-  @for $i from 1 through $count {
-    $value: $value + random(100) + vw + ' ' + random(100) + vh + ' 0 ' + random(5) + px + ' ' + var(--heart-color);
-    @if $i < $count {
-      $value: $value + ', ';
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8em; /* Adjust font size */
     }
-  }
-  @return unquote($value);
+    .content-container {
+        padding: 30px 25px;
+        max-width: 95%;
+    }
+    p {
+        font-size: 1em;
+    }
+    p.intro {
+        font-size: 1.1em;
+    }
 }
 
-@keyframes floatHearts {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-}
-
-.hearts-container::before {
-    /* Create 15 hearts */
-    width: 10px; /* Base size of hearts */
-    height: 10px; /* Base size of hearts */
-    box-shadow: hearts(15);
-    animation: floatHearts 25s linear infinite;
-}
-
-.hearts-container::after {
-     /* Create another 15 slightly different hearts */
-    width: 7px;
-    height: 7px;
-    box-shadow: hearts(15);
-    animation: floatHearts 30s linear infinite reverse; /* Different duration/direction */
-    animation-delay: 1s; /* Start slightly later */
-}
-         
